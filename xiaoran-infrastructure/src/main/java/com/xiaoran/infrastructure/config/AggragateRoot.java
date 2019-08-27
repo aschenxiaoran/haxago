@@ -1,4 +1,4 @@
-package com.xiaoran.infrastructure.config.annotation;
+package com.xiaoran.infrastructure.config;
 
 import java.lang.annotation.*;
 
