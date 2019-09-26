@@ -8,5 +8,5 @@ import com.xiaoran.infrastructure.command.CommandMessage;
  * Date 2019/9/19 19:57
  * Version 1.0
  **/
-public class CreateUserCommand implements CommandMessage {
+public class CreateUserCommand  {
 }

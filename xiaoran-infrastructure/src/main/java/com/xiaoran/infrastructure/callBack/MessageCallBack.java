@@ -1,7 +1,8 @@
 package com.xiaoran.infrastructure.callBack;
 
-public interface MessageCallBack {
+public interface MessageCallBack<R> {
 
-    void onSuccess();
+    void onSuccess(R result);
 
+    void onFailure(Throwable e);
 }

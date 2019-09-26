@@ -1,6 +1,7 @@
 package com.xiaoran.infrastructure;
 
 import com.xiaoran.infrastructure.command.SampleCommand;
+import com.xiaoran.infrastructure.gateway.DefaultCommandGateway;
 import com.xiaoran.infrastructure.springs.CommandHandlerDefinitionRegistry;
 import com.xiaoran.infrastructure.springs.SpringConfiguration;
 import org.junit.Assert;
@@ -28,7 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class CommandHandlerTests {
 
     @Autowired
-    private CommandGateWay commandGateWay;
+    private DefaultCommandGateway defaultCommandGateWay;
 
     @Test
     public void test_command_handle_annotation_excute() {
@@ -36,7 +37,7 @@ public class CommandHandlerTests {
         SampleCommand command=new SampleCommand();
         command.setCode("覃爽爽");
 
-        CommandResponse response=(CommandResponse) commandGateWay.sendAsyc(command);
+        CommandResponse response= defaultCommandGateWay.send(command);
 
         Assert.assertTrue(response.getSuccess());
     }

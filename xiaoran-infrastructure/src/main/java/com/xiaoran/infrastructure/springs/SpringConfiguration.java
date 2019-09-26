@@ -1,11 +1,10 @@
 package com.xiaoran.infrastructure.springs;
 
-import com.xiaoran.infrastructure.CommandGateWay;
+import com.xiaoran.infrastructure.gateway.DefaultCommandGateway;
 import com.xiaoran.infrastructure.aggragate.ProductAggragateRoot;
 import com.xiaoran.infrastructure.aggragate.SimpleAggrageRoot;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 /**
  * @ClassName SpringConfiguration
@@ -38,7 +37,7 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public CommandGateWay commandGateWay(){
-        return new CommandGateWay(commandBus());
+    public DefaultCommandGateway commandGateWay(){
+        return new DefaultCommandGateway(commandBus());
     }
 }

@@ -1,5 +1,7 @@
 package com.xiaoran.infrastructure.springs;
 
+import com.xiaoran.infrastructure.callBack.FutureCallBack;
+import com.xiaoran.infrastructure.callBack.MessageCallBack;
 import com.xiaoran.infrastructure.command.CommandMessage;
 import com.xiaoran.infrastructure.config.annotation.CommandHandler;
 import com.xiaoran.infrastructure.config.annotation.MethodCommandHandler;
@@ -45,10 +47,9 @@ public class CommandBus {
                 });
     }
 
-    public void dispatch(CommandMessage commmandMessage) {
+    public <R> void dispatch(CommandMessage commmandMessage, MessageCallBack<? super R> callBack) {
 
-        String commandName = commmandMessage.getClass().getName();
-        MethodCommandHandler methodCommandHandler = methodCommandHandlerHolder.get(commandName);
+        MethodCommandHandler methodCommandHandler = methodCommandHandlerHolder.get(commmandMessage.getCommandName());
 
         if (methodCommandHandler == null) {
             throw new MethodComandHandlerException(String.format("%s can not find comand handler", commmandMessage));
@@ -56,9 +57,10 @@ public class CommandBus {
 
         try {
             Class<?> aggragateRoot = Class.forName(methodCommandHandler.getAggrateRootClass().getName());
-            methodCommandHandler.getHandlerMethod().invoke(aggragateRoot.newInstance(), commmandMessage);
+            Object handerResult= methodCommandHandler.getHandlerMethod().invoke(aggragateRoot.newInstance(), commmandMessage);
+            callBack.onSuccess((R)handerResult);
         } catch (Exception e) {
-            e.printStackTrace();
+            callBack.onFailure(e);
         }
 
     }
