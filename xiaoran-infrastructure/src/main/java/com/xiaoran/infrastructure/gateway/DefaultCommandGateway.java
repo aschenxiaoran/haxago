@@ -36,7 +36,7 @@ public class DefaultCommandGateway implements CommandGatway {
 
         commandBus.dispatch(GenericCommandMessage.asCommandMessage(command), callBack);
 
-        return callBack.getResult().getResult();
+        return callBack.getResult();
     }
 
     //endregion

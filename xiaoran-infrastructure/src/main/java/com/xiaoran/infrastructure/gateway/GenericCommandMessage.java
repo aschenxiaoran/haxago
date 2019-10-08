@@ -8,21 +8,21 @@ import com.xiaoran.infrastructure.command.CommandMessage;
  * Date 2019/9/26 15:20
  * Version 1.0
  **/
-public class GenericCommandMessage<TResult> implements CommandMessage<TResult>{
+public class GenericCommandMessage<T> implements CommandMessage<T>{
 
     //region private variables
 
     private final String commandName;
 
-    private TResult result;
+    private T result;
 
     //endregion
 
     //region ctor
 
-    public GenericCommandMessage(TResult TResult) {
-        this.result= TResult;
-        this.commandName = TResult.getClass().getName();
+    public GenericCommandMessage(T object) {
+        this.result= object;
+        this.commandName = object.getClass().getName();
     }
 
     //endregion
@@ -35,7 +35,7 @@ public class GenericCommandMessage<TResult> implements CommandMessage<TResult>{
     }
 
     @Override
-    public TResult getResult() {
+    public T getResult() {
         return this.result;
     }
 

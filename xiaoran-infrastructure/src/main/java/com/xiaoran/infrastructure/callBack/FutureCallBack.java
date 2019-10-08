@@ -1,8 +1,5 @@
 package com.xiaoran.infrastructure.callBack;
 
-import com.xiaoran.infrastructure.command.CommandMessage;
-import com.xiaoran.infrastructure.gateway.GenericCommandMessage;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -29,16 +26,15 @@ public class FutureCallBack<R> extends CompletableFuture<R> implements MessageCa
         super.completeExceptionally(e);
     }
 
-    public CommandMessage<R> getResult() {
+    public R getResult() {
 
         try {
-            Object futureResult=super.get();
-            return GenericCommandMessage.asCommandMessage(futureResult);
+            return super.get();
         } catch (InterruptedException e) {
             Thread.interrupted();
-            return GenericCommandMessage.asCommandMessage(e.getCause().getMessage());
+            return null;
         } catch (ExecutionException e) {
-            return GenericCommandMessage.asCommandMessage(e.getCause().getMessage());
+            throw (RuntimeException)e.getCause();
         }
 
     }

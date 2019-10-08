@@ -57,7 +57,7 @@ public class CommandBus {
 
         try {
             Class<?> aggragateRoot = Class.forName(methodCommandHandler.getAggrateRootClass().getName());
-            Object handerResult= methodCommandHandler.getHandlerMethod().invoke(aggragateRoot.newInstance(), commmandMessage);
+            Object handerResult= methodCommandHandler.getHandlerMethod().invoke(aggragateRoot.newInstance(), commmandMessage.getResult());
             callBack.onSuccess((R)handerResult);
         } catch (Exception e) {
             callBack.onFailure(e);

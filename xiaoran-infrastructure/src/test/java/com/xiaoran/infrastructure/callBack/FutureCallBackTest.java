@@ -16,9 +16,9 @@ public class FutureCallBackTest {
         String result="test future call back on success";
         callBack.onSuccess(result);
 
-        CommandMessage<String> futureResult= callBack.getResult();
+        String futureResult= callBack.getResult();
 
-        Assert.assertTrue(futureResult.getResult().equals(result));
+        Assert.assertTrue(futureResult.equals(result));
     }
 
     @Test
@@ -31,8 +31,8 @@ public class FutureCallBackTest {
         }catch (Exception ex){
             callBack.onFailure(ex);
         }
-        CommandMessage<String> futureResult=callBack.getResult();
-        Assert.assertTrue(errorMessage.equals(futureResult.getResult()));
+        String futureResult=callBack.getResult();
+        Assert.assertTrue(errorMessage.equals(futureResult));
 
     }
 
